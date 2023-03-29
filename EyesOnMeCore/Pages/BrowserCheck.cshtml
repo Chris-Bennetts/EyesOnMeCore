@@ -1,0 +1,58 @@
+﻿@page
+@model EyesOnMeCore.Pages.BrowserCheckModel
+@{
+}
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="js/BrowserScan.js"></script>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body style="color: #fff;">
+	<header>
+		<h1>Browser Security Scanner</h1>
+		<nav>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Scan Now</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section class="hero">
+			<h2>Protect Your Browser From Security Threats</h2>
+			<p>Use our free tool to scan your browser for potential security issues and protect yourself from online threats.</p>
+			<a onclick="browserscan()" class="btn-primary">Scan Now</a>
+		</section>
+		<section class="features">
+			<h2>Features</h2>
+			<ul>
+				<li>Scan your browser for security issues</li>
+				<li>Get detailed reports on vulnerabilities</li>
+				<li>Recommendations for fixes and updates</li>
+				<li>Real-time protection against online threats</li>
+			</ul>
+		</section>
+		<section class="how-it-works">
+			<h2>How It Works</h2>
+			<ol>
+				<li>Click on "Scan Now" button to start the scan</li>
+				<li>Our tool will analyze your browser for security issues</li>
+				<li>You will receive a detailed report on vulnerabilities</li>
+				<li>Follow the recommendations for fixes and updates</li>
+				<li>Enjoy real-time protection against online threats</li>
+			</ol>
+		</section>
+	</main>
+	<footer>
+		<p>&copy; 2023 Browser Security Scanner. All rights reserved.</p>
+	</footer>
+</body>

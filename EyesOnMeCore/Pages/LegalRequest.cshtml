@@ -1,0 +1,85 @@
+﻿@page
+@model EyesOnMeCore.Pages.LegalRequestModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+    <title>Inbox</title>
+    <link rel="stylesheet" href="inbox.css" />
+    <style>
+        
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Inbox styles */
+        .message-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .message-item {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #555;
+            padding: 20px 0;
+        }
+
+        .message-sender {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .message-content {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .message-timestamp {
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inbox</h1>
+        <ul class="message-list">
+            
+            <li class="message-item">
+                <div class="message-sender">John Doe</div>
+                <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
+                <div class="message-timestamp">10:30 AM</div>
+            </li>
+            <li class="message-item">
+                <div class="message-sender">Jane Smith</div>
+                <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
+                <div class="message-timestamp">Yesterday</div>
+            </li>
+            <li class="message-item">
+                <div class="message-sender">John Doe</div>
+                <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
+                <div class="message-timestamp">3/15/2023</div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

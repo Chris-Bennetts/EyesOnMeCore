@@ -1,0 +1,154 @@
+/* _content/EyesOnMeCore/Pages/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-mci0uyssvg] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-mci0uyssvg], p[b-mci0uyssvg], h1[b-mci0uyssvg], h2[b-mci0uyssvg] {
+    color: #fff;
+}
+
+.btn-primary[b-mci0uyssvg] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #252027;
+}
+
+.nav-pills .nav-link.active[b-mci0uyssvg], .nav-pills .show > .nav-link[b-mci0uyssvg] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #252027;
+}
+
+.border-top[b-mci0uyssvg] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-mci0uyssvg] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-mci0uyssvg] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-mci0uyssvg] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-mci0uyssvg] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+body[b-mci0uyssvg] {
+    background-color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+a[b-mci0uyssvg] {
+    border: none;
+    color: #fff;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+h1[b-mci0uyssvg] {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.container[b-mci0uyssvg] {
+    width: 90%;
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #2b2b2b;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+label[b-mci0uyssvg] {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+input[type="text"][b-mci0uyssvg],
+input[type="password"][b-mci0uyssvg] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #3c3c3c;
+    color: #fff;
+}
+
+input[type="submit"][b-mci0uyssvg] {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #0078d4;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover[b-mci0uyssvg] {
+    background-color: #005a9e;
+}
+
+.container[b-mci0uyssvg] {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.message-list[b-mci0uyssvg] {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.message-item[b-mci0uyssvg] {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #555;
+    padding: 20px 0;
+}
+
+.message-sender[b-mci0uyssvg] {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.message-content[b-mci0uyssvg] {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.message-timestamp[b-mci0uyssvg] {
+    font-size: 14px;
+    color: #aaa;
+}

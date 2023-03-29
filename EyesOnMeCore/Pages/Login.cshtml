@@ -1,0 +1,106 @@
+﻿@page
+@model EyesOnMeCore.Pages.LoginModel
+@{
+}
+@*
+<form id="form1" runat="server">
+    <asp:Login ID="Login1" runat="server" OnAuthenticate="isValidUser"></asp:Login>
+</form>
+Yo
+<body>
+<div class="container" style="">
+    <label for="uname"><b>Username</b></label>
+    <br>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+    <br>
+    <label for="psw"><b>Password</b></label>
+    <br>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+    <br>
+    <button type="submit">Login</button>
+    <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+</div>
+</body>
+*@
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #2b2b2b;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #3c3c3c;
+            color: #fff;
+        }
+
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #0078d4;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #005a9e;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form action="" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+            <br />
+            <br />
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+            <input type="submit" value="Login" />
+        </form>
+    </div>
+</body>
+</html>

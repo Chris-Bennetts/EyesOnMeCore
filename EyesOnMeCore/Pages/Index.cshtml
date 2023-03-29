@@ -1,0 +1,38 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</div>
+<body >
+    <main>
+        
+        <section id="browser-scanner">
+            <h1>Browser Scanner</h1>
+            <p>Scan your web browser for vulnerabilities and ensure your online activities are secure.</p>
+            <a href="/BrowserCheck">Learn More</a>
+        </section>
+        <section id="email-scanner">
+            <h1>Email Scanner</h1>
+            <p>Scan your email inbox for potential security threats and protect your sensitive information.</p>
+            <a href="/EmailCheck">Learn More</a>
+        </section>
+        <section id="subject-action-request-generation">
+            <h1>Subject Action Request Generation</h1>
+            <p>Securely generate and send Subject Action Requests to data controllers to exercise your rights under data protection laws.</p>
+            <a href="/LegalRequest">Learn More</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Security-Focused Website. All Rights Reserved.</p>
+    </footer>
+</body>
+
