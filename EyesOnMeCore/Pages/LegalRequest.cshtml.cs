@@ -54,7 +54,7 @@ namespace EyesOnMeCore.Pages
                 [Signature]
                 ";
 
-            string UserID = User.Identity.Name;
+            string UserID = "0001";
             databaseaccess.GetData($"SELECT TOP 100 * FROM [dbo].[DataManagementRequest] WITH (NOLOCK) WHHERE RequestUserID = {UserID}");
         }
     }
