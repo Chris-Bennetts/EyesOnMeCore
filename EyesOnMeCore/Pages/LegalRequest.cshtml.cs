@@ -1,14 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 
 namespace EyesOnMeCore.Pages
 {
     public class LegalRequestModel : PageModel
     {
+        public Dictionary<string, string[]> RequestList { get; set; }
+
+        SignInManager<IdentityUser> signInManager;
+        UserManager<IdentityUser> userManager;
+        EmailManagement emailmanager = new EmailManagement();
+
         public void OnGet()
         {
-            Dictionary<string, string[]> keyValuePairs = new Dictionary<string, string[]>();
-
+           
             DatabaseAccess databaseaccess = new DatabaseAccess();
 
             string examplerequest = $@"
@@ -55,7 +62,20 @@ namespace EyesOnMeCore.Pages
                 ";
 
             string UserID = "0001";
+            //if (SignInManager.IsSignedIn(User))
+            //{
+
+            //}
             databaseaccess.GetData($"SELECT TOP 100 * FROM [dbo].[DataManagementRequest] WITH (NOLOCK) WHHERE RequestUserID = {UserID}");
         }
+        public void SendRequests(Dictionary<string, string[]> requestlist)
+        {
+           
+            foreach(KeyValuePair<string, string[]> request in requestlist)
+            {
+                emailmanager.SendMail(request);
+            }
+        }
+
     }
 }

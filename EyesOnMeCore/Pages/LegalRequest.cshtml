@@ -60,6 +60,47 @@
     </style>
 </head>
 <body>
+    <div id="overlay">
+        <header>
+            <h1>Subject Action Request Form</h1>
+        </header>
+        <main>
+            <form>
+                <fieldset>
+                    <legend>Select the Options to Include</legend>
+                    <div class="form-group">
+                        <input type="checkbox" id="option1" name="option1">
+                        <label for="option1">Option 1</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="option2" name="option2">
+                        <label for="option2">Option 2</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="option3" name="option3">
+                        <label for="option3">Option 3</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="option4" name="option4">
+                        <label for="option4">Option 4</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="option5" name="option5">
+                        <label for="option5">Option 5</label>
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject">
+                </div>
+                <div class="form-group">
+                    <label for="request">Request</label>
+                    <textarea id="request" name="request"></textarea>
+                </div>
+                <button type="submit">Generate Request</button>
+            </form>
+        </main>
+    </div>
     <div class="container">
         <h1>Inbox</h1>
         <ul class="message-list">
@@ -79,8 +120,26 @@
                 <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
                 <div class="message-timestamp">3/15/2023</div>
             </li>
-
+            @foreach (KeyValuePair<string, string[]> Requestdetail in legalRequest.RequestList)
+            {
+                <li class="message-item">
+                    <div class="message-sender">John Doe</div>
+                    <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
+                    <div class="message-timestamp">3/15/2023</div>
+                </li>
+            }
         </ul>
     </div>
 </body>
+<script>
+    function browserscanon() {
+        document.getElementById("overlay").style.display = "block";
+        browserscan();
+    }
+
+    function browserscanoff() {
+        document.getElementById("overlay").style.display = "none";
+    }
+
+</script>
 </html>
