@@ -75,3 +75,7 @@ C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\runtimes\win-x64\native\sni.dl
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Azure.Communication.Email.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Azure.Core.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\System.Memory.Data.dll

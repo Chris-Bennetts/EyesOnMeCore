@@ -10,13 +10,11 @@ namespace EyesOnMeCore
 {
     public class EmailManagement
     {
-        EmailClient emailClient = new EmailClient(Environment.GetEnvironmentVariable("endpoint=https://eoutest.communication.azure.com/;accesskey=wD0WPzCupLwH1aYcMPN4J1fweeAMG22mxWlubzyi2SeH4YHnM1pn9RWqh6SMeEJdWpedZ+m1CfHUhBMpnmh91w=="));
-
         public async Task Main(string[] args)
         {
         }
 
-        public async Task SendMail(KeyValuePair<string, string[]> mailparams)
+        public async Task SendMail(KeyValuePair<string, string[]> mailparams, EmailClient emailClient)
         {
             var subject = "Welcome to Azure Communication Service Email APIs.";
             var htmlContent = "<html><body><h1>Quick send email test</h1><br/><h4>This email message is sent from Azure Communication Service Email.</h4><p>This mail was send using .NET SDK!!</p></body></html>";

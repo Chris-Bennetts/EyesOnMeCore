@@ -7,6 +7,7 @@ namespace EyesOnMeCore.Pages
     {
         public void OnGet()
         {
+
         }
     }
 }

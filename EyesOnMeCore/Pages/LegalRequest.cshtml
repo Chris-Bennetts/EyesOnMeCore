@@ -1,6 +1,7 @@
 ﻿@page
 @model EyesOnMeCore.Pages.LegalRequestModel
 @{
+    LegalRequestModel legalRequest = new LegalRequestModel();
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +17,19 @@
     <title>Inbox</title>
     <link rel="stylesheet" href="inbox.css" />
     <style>
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
         
         body {
             background-color: #111;
@@ -61,47 +75,50 @@
 </head>
 <body>
     <div id="overlay">
-        <header>
-            <h1>Subject Action Request Form</h1>
-        </header>
-        <main>
-            <form>
-                <fieldset>
-                    <legend>Select the Options to Include</legend>
+        <div class="container">
+            <header >
+                <h3>Subject Action Request Form</h3>
+            </header>
+            <main >
+                <form>
+                    <fieldset>
+                        <legend>Select the Options to Include</legend>
+                        <div class="form-group">
+                            <input type="checkbox" id="option1" name="option1">
+                            <label for="option1">Option 1</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="option2" name="option2">
+                            <label for="option2">Option 2</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="option3" name="option3">
+                            <label for="option3">Option 3</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="option4" name="option4">
+                            <label for="option4">Option 4</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="option5" name="option5">
+                            <label for="option5">Option 5</label>
+                        </div>
+                    </fieldset>
                     <div class="form-group">
-                        <input type="checkbox" id="option1" name="option1">
-                        <label for="option1">Option 1</label>
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject">
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="option2" name="option2">
-                        <label for="option2">Option 2</label>
+                        <label for="request">Request</label>
+                        <textarea id="request" name="request"></textarea>
                     </div>
-                    <div class="form-group">
-                        <input type="checkbox" id="option3" name="option3">
-                        <label for="option3">Option 3</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" id="option4" name="option4">
-                        <label for="option4">Option 4</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" id="option5" name="option5">
-                        <label for="option5">Option 5</label>
-                    </div>
-                </fieldset>
-                <div class="form-group">
-                    <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject">
-                </div>
-                <div class="form-group">
-                    <label for="request">Request</label>
-                    <textarea id="request" name="request"></textarea>
-                </div>
-                <button type="submit">Generate Request</button>
-            </form>
-        </main>
+                    <button type="submit">Generate Request</button>
+                </form>
+            </main>
+        </div>
     </div>
     <div class="container">
+        <button onclick="sendrequest()" type="submit"  class="btn-primary">Generate Request</button>
         <h1>Inbox</h1>
         <ul class="message-list">
             
@@ -120,26 +137,39 @@
                 <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
                 <div class="message-timestamp">3/15/2023</div>
             </li>
-            @foreach (KeyValuePair<string, string[]> Requestdetail in legalRequest.RequestList)
-            {
-                <li class="message-item">
-                    <div class="message-sender">John Doe</div>
-                    <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
-                    <div class="message-timestamp">3/15/2023</div>
-                </li>
+            @if (legalRequest.RequestList.Count != 0)
+            { 
+                foreach (KeyValuePair<string, string[]> Requestdetail in legalRequest.RequestList)
+                {
+                    <li class="message-item">
+                        <div class="message-sender">John Doe</div>
+                        <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
+                        <div class="message-timestamp">3/15/2023</div>
+                    </li>
+                } 
             }
         </ul>
     </div>
-</body>
 <script>
-    function browserscanon() {
+    function sendrequest() {
         document.getElementById("overlay").style.display = "block";
-        browserscan();
+        postrequest();
+
     }
 
-    function browserscanoff() {
+    function finishrequest() {
         document.getElementById("overlay").style.display = "none";
     }
 
+    function postrequest() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            document.getElementById("demo").innerHTML = this.responseText;
+        }
+        xhttp.open("GET", "ajax_info.txt", true);
+        xhttp.send();
+    }
+
 </script>
+</body>
 </html>

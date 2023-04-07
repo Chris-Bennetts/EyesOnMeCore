@@ -2,6 +2,8 @@
 @model EyesOnMeCore.Pages.BrowserCheckModel
 @{
 }
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +47,7 @@
 		<section class="hero">
 			<h2>Protect Your Browser From Security Threats</h2>
 			<p>Use our free tool to scan your browser for potential security issues and protect yourself from online threats.</p>
-			<a onclick="browserscanon()" class="btn-primary">Scan Now</a>
+			<button onclick="browserscanon()" type="submit" class="btn-primary">Scan Now</button>
 		</section>
 		<section class="features">
 			<h2>Features</h2>
@@ -67,18 +69,16 @@
 			</ol>
 		</section>
 	</main>
-	<footer>
-		<p>&copy; 2023 Browser Security Scanner. All rights reserved.</p>
-	</footer>
+	<script>
+		function browserscanon() {
+			document.getElementById("overlay").style.display = "block";
+			browserscan();
+		}
+
+		function browserscanoff() {
+			document.getElementById("overlay").style.display = "none";
+		}
+
+	</script>
 </body>
-<script>
-	function browserscanon() {
-		document.getElementById("overlay").style.display = "block";
-		browserscan();
-	}
-
-	function browserscanoff() {
-		document.getElementById("overlay").style.display = "none";
-	}
-
-</script>
+</html>

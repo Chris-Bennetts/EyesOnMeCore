@@ -2,12 +2,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using Azure.Communication.Email;
+using System.Text.Json;
+using System.Text;
 
 namespace EyesOnMeCore.Pages
 {
     public class LegalRequestModel : PageModel
     {
-        public Dictionary<string, string[]> RequestList { get; set; }
+        public Dictionary<string, string[]> RequestList = new Dictionary<string, string[]>(); /*{ get; set; }*/
 
         SignInManager<IdentityUser> signInManager;
         UserManager<IdentityUser> userManager;
@@ -15,7 +18,7 @@ namespace EyesOnMeCore.Pages
 
         public void OnGet()
         {
-           
+
             DatabaseAccess databaseaccess = new DatabaseAccess();
 
             string examplerequest = $@"
@@ -61,21 +64,25 @@ namespace EyesOnMeCore.Pages
                 [Signature]
                 ";
 
-            string UserID = "0001";
-            //if (SignInManager.IsSignedIn(User))
-            //{
+            string UserID = "00001";
 
-            //}
-            databaseaccess.GetData($"SELECT TOP 100 * FROM [dbo].[DataManagementRequest] WITH (NOLOCK) WHHERE RequestUserID = {UserID}");
+            string[] requestdataraw = databaseaccess.GetData($"SELECT TOP 100 * FROM [dbo].[DataManagementRequest] WITH (NOLOCK) WHERE RequestUserID = {UserID}");
+
+            foreach (string request in requestdataraw)
+            {
+                string[] requestdetails = request.Split(',');
+                RequestList.Add(requestdetails[0], requestdetails);
+            }
         }
         public void SendRequests(Dictionary<string, string[]> requestlist)
         {
-           
-            foreach(KeyValuePair<string, string[]> request in requestlist)
+            string ComsServiceConnectionString = "endpoint=https://eoucomsservice.communication.azure.com/;accesskey=zKICzTtdwWjJop44CaZ0nyxSHbXTN2zqGjUMtlcb0lSaitop+dW0CxG4XargvHJBlFGg1pUyqF5kCZ7w7PBdcw==";
+            EmailClient emailClient = new EmailClient(Environment.GetEnvironmentVariable(ComsServiceConnectionString));
+
+            foreach (KeyValuePair<string, string[]> request in requestlist)
             {
-                emailmanager.SendMail(request);
+                emailmanager.SendMail(request, emailClient);
             }
         }
-
     }
 }
