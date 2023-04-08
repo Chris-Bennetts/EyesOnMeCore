@@ -18,8 +18,8 @@ namespace EyesOnMeCore
         {
             var subject = "Welcome to Azure Communication Service Email APIs.";
             var htmlContent = "<html><body><h1>Quick send email test</h1><br/><h4>This email message is sent from Azure Communication Service Email.</h4><p>This mail was send using .NET SDK!!</p></body></html>";
-            var sender = "DoNotReply@86d6667f-d86d-4883-81e8-229a7ed1918a.azurecomm.net";
-            var recipient = "Christopher.Mac.Bennetts@Gmail.com";
+            var sender = "EyePrivate@86d6667f-d86d-4883-81e8-229a7ed1918a.azurecomm.net";
+            var recipient = "CMBennetts@proton.me";
 
             try
             {

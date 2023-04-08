@@ -19,6 +19,7 @@ namespace EyesOnMeCore.Pages
         public void OnGet()
         {
 
+            SendRequests(RequestList);
             DatabaseAccess databaseaccess = new DatabaseAccess();
 
             string examplerequest = $@"
@@ -77,8 +78,10 @@ namespace EyesOnMeCore.Pages
         public void SendRequests(Dictionary<string, string[]> requestlist)
         {
             string ComsServiceConnectionString = "endpoint=https://eoucomsservice.communication.azure.com/;accesskey=zKICzTtdwWjJop44CaZ0nyxSHbXTN2zqGjUMtlcb0lSaitop+dW0CxG4XargvHJBlFGg1pUyqF5kCZ7w7PBdcw==";
-            EmailClient emailClient = new EmailClient(Environment.GetEnvironmentVariable(ComsServiceConnectionString));
+            EmailClient emailClient = new EmailClient(ComsServiceConnectionString);
 
+            string[] temp = new string[] { "yada", "yoda" };
+            requestlist.Add("string", temp);
             foreach (KeyValuePair<string, string[]> request in requestlist)
             {
                 emailmanager.SendMail(request, emailClient);

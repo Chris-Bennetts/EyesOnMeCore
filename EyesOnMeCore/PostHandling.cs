@@ -5,11 +5,10 @@ namespace EyesOnMeCore
 {
     public class PostHandling
     {
-
-        private static HttpClient sharedClient = new()
-        {
-            BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
-        }
+        //private static HttpClient sharedClient = new()
+        //{
+        //    BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
+        //}
     }
 }
 
