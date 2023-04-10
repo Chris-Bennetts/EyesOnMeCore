@@ -70,9 +70,33 @@
 		</section>
 	</main>
 	<script>
+		
+    function UrlExists(url, cb) {
+        jQuery.ajax({
+            url:
+                url,
+            dataType: 'text',
+            type:
+                'GET',
+            complete: function (xhr) {
+                if (typeof cb === 'function')
+                    cb.apply(this, [xhr.status]);
+            }
+        });
+    }
+		function RunFullScan(){
+    UrlExists('chrome-extension://nemmanchfojaehgkbgcfmdiidbopakpp/js/virtru-content.js', function (status) {
+    });
+    if (status === 200) {
+            console.log("Virtru Exists!");
+    } else if (status === 404) {
+        console.log("No Virtru :(");
+    } else {
+    }
+		}
 		function browserscanon() {
 			document.getElementById("overlay").style.display = "block";
-			browserscan();
+			RunFullScan();
 		}
 
 		function browserscanoff() {
