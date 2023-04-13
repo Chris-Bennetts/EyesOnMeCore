@@ -1,4 +1,6 @@
 using EyesOnMeCore.Data;
+using EyesOnMeCore.Pages;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -69,5 +71,16 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapPost("/PostRequest", (HttpRequest request) =>
+{
+    LegalRequestModel legalRequest = new LegalRequestModel();
+    legalRequest.RunRequests();
+
+    var userAgent = request.Headers.UserAgent;
+    var customHeader = request.Headers["x-custom-header"];
+
+    return Results.Ok(new { userAgent = userAgent, customHeader = customHeader });
+});
 
 app.Run();

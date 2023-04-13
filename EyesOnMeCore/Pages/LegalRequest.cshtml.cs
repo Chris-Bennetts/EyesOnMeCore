@@ -5,21 +5,24 @@ using System;
 using Azure.Communication.Email;
 using System.Text.Json;
 using System.Text;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Security.Cryptography.Xml;
+using Azure.Core;
 
 namespace EyesOnMeCore.Pages
 {
     public class LegalRequestModel : PageModel
     {
-        public Dictionary<string, string[]> RequestList = new Dictionary<string, string[]>(); /*{ get; set; }*/
+        public Dictionary<string, string[]> requestlist = new Dictionary<string, string[]>(); /*{ get; set; }*/
 
         SignInManager<IdentityUser> signInManager;
         UserManager<IdentityUser> userManager;
         EmailManagement emailmanager = new EmailManagement();
 
-        public void OnGet()
+        public async void OnGet()
         {
-
-            SendRequests(RequestList);
+            
             DatabaseAccess databaseaccess = new DatabaseAccess();
 
             string examplerequest = $@"
@@ -72,10 +75,38 @@ namespace EyesOnMeCore.Pages
             foreach (string request in requestdataraw)
             {
                 string[] requestdetails = request.Split(',');
-                RequestList.Add(requestdetails[0], requestdetails);
+                requestlist.Add(requestdetails[0], requestdetails);
             }
         }
-        public void SendRequests(Dictionary<string, string[]> requestlist)
+
+        public async void RunRequests()
+        {
+            string datarequested = "All data relating to the subject's email address collected for marketing or other nonesential purposes";
+            string target = "ShadyBusiness.com";
+            string purpose = "request";
+            string subject = "Christopher Bennetts";
+
+
+            string[] request = new string[] { datarequested, target, purpose, subject };
+            Guid id = Guid.NewGuid();
+            requestlist.Add(id.ToString(), request);
+
+            await GenerateRequests(requestlist);
+            await SendRequests(requestlist);
+
+        }
+
+        public async Task GenerateRequests(Dictionary<string, string[]> requestlist)
+        {
+            AIAPI aiapi = new AIAPI();
+            foreach(KeyValuePair<string, string[]> request in requestlist)
+            {
+                string requestrun = await Task.Run(() => aiapi.SendRequest(request));
+                request.Value.Append(requestrun);
+            }
+        }
+
+        public async Task SendRequests(Dictionary<string, string[]> requestlist)
         {
             string ComsServiceConnectionString = "endpoint=https://eoucomsservice.communication.azure.com/;accesskey=zKICzTtdwWjJop44CaZ0nyxSHbXTN2zqGjUMtlcb0lSaitop+dW0CxG4XargvHJBlFGg1pUyqF5kCZ7w7PBdcw==";
             EmailClient emailClient = new EmailClient(ComsServiceConnectionString);

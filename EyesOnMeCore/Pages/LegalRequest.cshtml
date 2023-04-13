@@ -2,6 +2,7 @@
 @model EyesOnMeCore.Pages.LegalRequestModel
 @{
     LegalRequestModel legalRequest = new LegalRequestModel();
+    
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,6 @@
         }
     </style>
     <title>Inbox</title>
-    <link rel="stylesheet" href="inbox.css" />
     <style>
         #overlay {
             position: fixed;
@@ -137,9 +137,9 @@
                 <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
                 <div class="message-timestamp">3/15/2023</div>
             </li>
-            @if (legalRequest.RequestList.Count != 0)
-            { 
-                foreach (KeyValuePair<string, string[]> Requestdetail in legalRequest.RequestList)
+            @if (legalRequest.requestlist.Count != 0)
+            {
+                foreach (KeyValuePair<string, string[]> Requestdetail in legalRequest.requestlist)
                 {
                     <li class="message-item">
                         <div class="message-sender">John Doe</div>
@@ -149,12 +149,15 @@
                 } 
             }
         </ul>
+
+        <p id="demo1"> this is what's sent </p>
+        <p id="demo"> this is the result </p>
     </div>
 <script>
 
-    function sendrequest() {
+        function sendrequest() {
+            postrequest();
         document.getElementById("overlay").style.display = "block";
-        postrequest();
 
     }
 
@@ -164,11 +167,19 @@
 
     function postrequest() {
         const xhttp = new XMLHttpRequest();
-        xhttp.onload = function () {
-            document.getElementById("demo").innerHTML = this.responseText;
+        xhttp.onload = function() {
+        document.getElementById("demo").innerHTML = this.responseText;
         }
-        xhttp.open("GET", "ajax_info.txt", true);
+            xhttp.open("POST", "PostRequest");
+        const temp = document.getElementById("demo1").innerHTML;
         xhttp.send();
+
+        //const xhttp = new XMLHttpRequest();
+        ////xhttp.onload = function () {
+        ////    document.getElementById("demo").innerHTML = this.responseText;
+        ////}
+        //xhttp.open("POST", "ajax_info.txt", true);
+        //xhttp.send();
     }
 
 </script>

@@ -79,3 +79,12 @@ C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Azure.Communication.Email.dll
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Azure.Core.dll
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\System.Memory.Data.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Google.Apis.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Google.Apis.Auth.PlatformServices.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Google.Apis.Auth.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Google.Apis.Core.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Google.Apis.Gmail.v1.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\OpenAI.GPT3.dll
