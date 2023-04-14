@@ -72,15 +72,16 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.MapPost("/PostRequest", (HttpRequest request) =>
+app.MapPost("/PostRequest", (IConfiguration config, HttpContext content) =>
 {
+    string value = content.Request.Body.ToString();
     LegalRequestModel legalRequest = new LegalRequestModel();
     legalRequest.RunRequests();
 
-    var userAgent = request.Headers.UserAgent;
-    var customHeader = request.Headers["x-custom-header"];
+    //var userAgent = context.Headers.UserAgent;
+    //var customHeader = context.Headers["x-custom-header"];
 
-    return Results.Ok(new { userAgent = userAgent, customHeader = customHeader });
+    //return Results.Ok(new { userAgent = userAgent, customHeader = customHeader });
 });
 
 app.Run();
