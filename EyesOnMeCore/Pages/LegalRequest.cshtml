@@ -74,6 +74,15 @@
     </style>
 </head>
 <body>
+    <form id="myForm" runat="server" action="Default.aspx" method="post">
+
+        // some fields are here. for instance
+
+        <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+
+        <asp:Button ID="btnSubmit" Text="Submit" runat="server" />
+
+    </form>
     <div id="overlay">
         <div class="container">
             <header >
@@ -171,8 +180,14 @@
         document.getElementById("demo").innerHTML = this.responseText;
         }
             xhttp.open("POST", "PostRequest");
-        const temp = document.getElementById("demo1").innerHTML;
-        xhttp.send("POSTREQUESTTEXT");
+            let text = '{ "employees" : [' +
+                '{ "firstName":"John" , "lastName":"Doe" },' +
+                '{ "firstName":"Anna" , "lastName":"Smith" },' +
+                '{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+            const obj = JSON.parse(text);
+            //const temp = document.getElementById("demo1").innerHTML;
+            const temp = "This is text";
+        xhttp.send(obj);
 
         //const xhttp = new XMLHttpRequest();
         ////xhttp.onload = function () {

@@ -8,6 +8,7 @@ using System.Text;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.Xml;
+using System.Web;
 using Azure.Core;
 
 namespace EyesOnMeCore.Pages
@@ -78,6 +79,10 @@ namespace EyesOnMeCore.Pages
                 requestlist.Add(requestdetails[0], requestdetails);
             }
         }
+        //public partial class Default : System.Web.UI.Page
+        //{
+        //    string name = Request.Form["txtName"];
+        //}
 
         public async void RunRequests()
         {

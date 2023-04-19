@@ -3,6 +3,7 @@ using EyesOnMeCore.Pages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,11 +73,12 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.MapPost("/PostRequest", (IConfiguration config, HttpContext content) =>
+app.MapPost("/PostRequest", (IConfiguration config, HttpRequest request) =>
 {
-    string value = content.Request.Body.ToString();
-    LegalRequestModel legalRequest = new LegalRequestModel();
-    legalRequest.RunRequests();
+    //Stream valuestream = request.BodyReader.AsStream();
+    //valuestream.BeginRead
+    //LegalRequestModel legalRequest = new LegalRequestModel();
+    //legalRequest.RunRequests();
 
     //var userAgent = context.Headers.UserAgent;
     //var customHeader = context.Headers["x-custom-header"];
