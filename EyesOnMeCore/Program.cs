@@ -76,7 +76,7 @@ app.MapRazorPages();
 
 app.MapPost("/PostRequest", async (IConfiguration config, HttpContext context) =>
 {
-    var filePath = Path.GetRandomFileName();
+    var filePath = "UserText/" + Path.GetRandomFileName();
 
     await using var writeStream = File.Create(filePath);
     await context.Request.Body.CopyToAsync(writeStream);

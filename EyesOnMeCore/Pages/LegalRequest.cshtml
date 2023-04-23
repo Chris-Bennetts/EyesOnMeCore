@@ -1,4 +1,7 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @model EyesOnMeCore.Pages.LegalRequestModel
 @{
     LegalRequestModel legalRequest = new LegalRequestModel();
@@ -9,12 +12,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-        body {
-            background-color: #333;
-            color: #fff;
-        }
-    </style>
+
     <title>Inbox</title>
     <style>
         #overlay {
@@ -30,7 +28,7 @@
             z-index: 2;
             cursor: pointer;
         }
-        
+
         body {
             background-color: #111;
             color: #fff;
@@ -74,15 +72,6 @@
     </style>
 </head>
 <body>
-    <form id="myForm" runat="server" action="Default.aspx" method="post">
-
-        // some fields are here. for instance
-
-        <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
-
-        <asp:Button ID="btnSubmit" Text="Submit" runat="server" />
-
-    </form>
     <div id="overlay">
         <div class="container">
             <header >
@@ -94,34 +83,26 @@
                         <legend>Select the Options to Include</legend>
                         <div class="form-group">
                             <input type="checkbox" id="option1" name="option1">
-                            <label for="option1">Option 1</label>
+                            <label for="option1">Request a copy of your data</label>
                         </div>
                         <div class="form-group">
                             <input type="checkbox" id="option2" name="option2">
-                            <label for="option2">Option 2</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" id="option3" name="option3">
-                            <label for="option3">Option 3</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" id="option4" name="option4">
-                            <label for="option4">Option 4</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" id="option5" name="option5">
-                            <label for="option5">Option 5</label>
+                            <label for="option2">Delete all data held on you</label>
                         </div>
                     </fieldset>
                     <div class="form-group">
+                        <label for="subject">Target</label>
+                        <input type="text" id="targettext" name="target">
+                    </div>
+                    <div class="form-group">
                         <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject">
+                        <input type="text" id="subjecttext" name="subject">
                     </div>
                     <div class="form-group">
                         <label for="request">Request</label>
-                        <textarea id="request" name="request"></textarea>
+                        <textarea id="datatext" name="request"></textarea>
                     </div>
-                    <button type="submit">Generate Request</button>
+                    <button  onclick="postrequest()" type="submit">Generate Request</button>
                 </form>
             </main>
         </div>
@@ -159,13 +140,11 @@
             }
         </ul>
 
-        <p id="demo1"> this is what's sent </p>
-        <p id="demo"> this is the result </p>
+        <p id="demo1"> no data was sent </p>
     </div>
 <script>
 
         function sendrequest() {
-            postrequest();
         document.getElementById("overlay").style.display = "block";
 
     }
@@ -180,14 +159,11 @@
         document.getElementById("demo").innerHTML = this.responseText;
         }
             xhttp.open("POST", "PostRequest");
-            let text = '{ "employees" : [' +
-                '{ "firstName":"John" , "lastName":"Doe" },' +
-                '{ "firstName":"Anna" , "lastName":"Smith" },' +
-                '{ "firstName":"Peter" , "lastName":"Jones" } ]}';
-            text = document.getElementById("demo1").innerHTML;
+            text = document.getElementById("targettext").value + "|" +
+            document.getElementById("subjecttext").value + "|" +
+            document.getElementById("datatext").value;
             const obj = JSON.stringify(text);
             xhttp.send(obj);
-
     }
 
 </script>

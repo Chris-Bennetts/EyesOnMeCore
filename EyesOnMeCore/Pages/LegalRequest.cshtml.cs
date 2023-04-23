@@ -92,10 +92,12 @@ namespace EyesOnMeCore.Pages
             string purpose = "request";
             string subject = "Christopher Bennetts";
 
+            string[] request = rawtext.Split('|'); 
+
             try
             {
 
-                string[] request = new string[] { datarequested, target, purpose, subject };
+                //string[] request = new string[] { datarequested, target, purpose, subject };
                 Guid id = Guid.NewGuid();
                 requestlist.Add(id.ToString(), request);
 
