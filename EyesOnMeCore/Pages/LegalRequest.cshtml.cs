@@ -20,12 +20,12 @@ namespace EyesOnMeCore.Pages
         SignInManager<IdentityUser> signInManager;
         UserManager<IdentityUser> userManager;
         EmailManagement emailmanager = new EmailManagement();
+        DatabaseAccess databaseaccess = new DatabaseAccess();
+
 
         public async void OnGet()
         {
             
-            DatabaseAccess databaseaccess = new DatabaseAccess();
-
             string examplerequest = $@"
 
                 [Name and address of the organisation]
@@ -84,21 +84,46 @@ namespace EyesOnMeCore.Pages
         //    string name = Request.Form["txtName"];
         //}
 
-        public async void RunRequests()
+        public async Task<bool> RunRequests(string rawtext)
         {
+            bool succeeded = false;
             string datarequested = "All data relating to the subject's email address collected for marketing or other nonesential purposes";
             string target = "ShadyBusiness.com";
             string purpose = "request";
             string subject = "Christopher Bennetts";
 
+            try
+            {
 
-            string[] request = new string[] { datarequested, target, purpose, subject };
-            Guid id = Guid.NewGuid();
-            requestlist.Add(id.ToString(), request);
+                string[] request = new string[] { datarequested, target, purpose, subject };
+                Guid id = Guid.NewGuid();
+                requestlist.Add(id.ToString(), request);
 
-            await GenerateRequests(requestlist);
-            await SendRequests(requestlist);
+                await GenerateRequests(requestlist);
+                await SendRequests(requestlist);
+                await SaveRequests(requestlist);
+                
+                succeeded = true;
+            }
+            catch
+            {
+                succeeded = false;
+            }
+            return succeeded;
 
+        }
+
+        public async Task<bool> SaveRequests(Dictionary<string, string[]> requestlist)
+        {
+            int result = databaseaccess.SetData("");
+            if (result == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public async Task GenerateRequests(Dictionary<string, string[]> requestlist)
@@ -120,7 +145,7 @@ namespace EyesOnMeCore.Pages
             requestlist.Add("string", temp);
             foreach (KeyValuePair<string, string[]> request in requestlist)
             {
-                emailmanager.SendMail(request, emailClient);
+                await emailmanager.SendMail(request, emailClient);
             }
         }
     }

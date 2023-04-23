@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,17 +74,18 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.MapPost("/PostRequest", (IConfiguration config, HttpRequest request) =>
+app.MapPost("/PostRequest", async (IConfiguration config, HttpContext context) =>
 {
-    //Stream valuestream = request.BodyReader.AsStream();
-    //valuestream.BeginRead
-    //LegalRequestModel legalRequest = new LegalRequestModel();
-    //legalRequest.RunRequests();
+    var filePath = Path.GetRandomFileName();
 
-    //var userAgent = context.Headers.UserAgent;
-    //var customHeader = context.Headers["x-custom-header"];
+    await using var writeStream = File.Create(filePath);
+    await context.Request.Body.CopyToAsync(writeStream);
+    writeStream.Close();
+    string readText = File.ReadAllText(filePath);
+    LegalRequestModel legalRequest = new LegalRequestModel();
+    bool result = await legalRequest.RunRequests(readText);
 
-    //return Results.Ok(new { userAgent = userAgent, customHeader = customHeader });
+    return result;
 });
 
 app.Run();

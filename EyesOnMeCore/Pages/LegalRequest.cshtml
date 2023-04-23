@@ -184,17 +184,10 @@
                 '{ "firstName":"John" , "lastName":"Doe" },' +
                 '{ "firstName":"Anna" , "lastName":"Smith" },' +
                 '{ "firstName":"Peter" , "lastName":"Jones" } ]}';
-            const obj = JSON.parse(text);
-            //const temp = document.getElementById("demo1").innerHTML;
-            const temp = "This is text";
-        xhttp.send(obj);
+            text = document.getElementById("demo1").innerHTML;
+            const obj = JSON.stringify(text);
+            xhttp.send(obj);
 
-        //const xhttp = new XMLHttpRequest();
-        ////xhttp.onload = function () {
-        ////    document.getElementById("demo").innerHTML = this.responseText;
-        ////}
-        //xhttp.open("POST", "ajax_info.txt", true);
-        //xhttp.send();
     }
 
 </script>
