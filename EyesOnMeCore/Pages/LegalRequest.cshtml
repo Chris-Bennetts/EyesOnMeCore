@@ -5,7 +5,8 @@
 @model EyesOnMeCore.Pages.LegalRequestModel
 @{
     LegalRequestModel legalRequest = new LegalRequestModel();
-    
+    //ClaimsPrincipal principal = HttpContext.Current.User as ClaimsPrincipal;  
+    //string userid = UserManager.GetUserId();
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -72,6 +73,8 @@
     </style>
 </head>
 <body>
+@if (SignInManager.IsSignedIn(User))
+{
     <div id="overlay">
         <div class="container">
             <header >
@@ -82,11 +85,11 @@
                     <fieldset>
                         <legend>Select the Options to Include</legend>
                         <div class="form-group">
-                            <input type="checkbox" id="option1" name="option1">
-                            <label for="option1">Request a copy of your data</label>
+                            <input type="checkbox" id="reqbool" name="option1">
+                            <label id="option1" for="option1">Request a copy of your data</label>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" id="option2" name="option2">
+                            <input type="checkbox" id="delbool" name="option2">
                             <label for="option2">Delete all data held on you</label>
                         </div>
                     </fieldset>
@@ -97,6 +100,10 @@
                     <div class="form-group">
                         <label for="subject">Subject</label>
                         <input type="text" id="subjecttext" name="subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Return address</label>
+                        <input type="text" id="returntext" name="subject">
                     </div>
                     <div class="form-group">
                         <label for="request">Request</label>
@@ -112,16 +119,6 @@
         <h1>Inbox</h1>
         <ul class="message-list">
             
-            <li class="message-item">
-                <div class="message-sender">John Doe</div>
-                <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
-                <div class="message-timestamp">10:30 AM</div>
-            </li>
-            <li class="message-item">
-                <div class="message-sender">Jane Smith</div>
-                <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
-                <div class="message-timestamp">Yesterday</div>
-            </li>
             <li class="message-item">
                 <div class="message-sender">John Doe</div>
                 <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
@@ -142,8 +139,14 @@
 
         <p id="demo1"> no data was sent </p>
     </div>
+}
+else
+{
+    <div class="container">
+        <h3> This page can only be accessed when logged in please log in to use it.</h3>
+    </div>
+}
 <script>
-
         function sendrequest() {
         document.getElementById("overlay").style.display = "block";
 
@@ -159,9 +162,17 @@
         document.getElementById("demo").innerHTML = this.responseText;
         }
             xhttp.open("POST", "PostRequest");
-            text = document.getElementById("targettext").value + "|" +
-            document.getElementById("subjecttext").value + "|" +
-            document.getElementById("datatext").value;
+
+            var useridtemp = "@User.Identity.Name";
+            var purposedesc = "";
+            if (document.getElementById("reqbool").value) {
+                purposedesc += "request,";
+            }
+            if(document.getElementById("delbool").value) {
+                purposedesc += "delete,";
+            }
+            text = document.getElementById("datatext").value + "|" + document.getElementById("targettext").value + "|" +
+                purposedesc + "|" + document.getElementById("subjecttext").value + "|" + document.getElementById("returntext").value, useridtemp;
             const obj = JSON.stringify(text);
             xhttp.send(obj);
     }

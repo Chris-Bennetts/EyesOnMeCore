@@ -17,6 +17,7 @@ namespace EyesOnMeCore
             string target = request.Value[1];
             string purpose = request.Value[2];
             string subject = request.Value[3];
+            string returnmail = request.Value[4];
 
             string APIKEy = "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";
             var openAiService = new OpenAIService(new OpenAiOptions()
@@ -38,7 +39,10 @@ ask for this to be done for the data: {datarequested}.")
             });
             if (completionResult.Successful)
             {
-                return completionResult.Choices.First().Message.Content;
+                string result =  completionResult.Choices.First().Message.Content;
+                result =  result.Replace("[DEFAULT SUBJECT]", subject);
+                result =  result.Replace("[DEFAULT EMAIL]", returnmail);
+                return result;
             }
             else 
             {

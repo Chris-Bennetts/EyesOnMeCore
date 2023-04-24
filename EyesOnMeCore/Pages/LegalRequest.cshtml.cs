@@ -10,12 +10,14 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography.Xml;
 using System.Web;
 using Azure.Core;
+using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace EyesOnMeCore.Pages
 {
     public class LegalRequestModel : PageModel
     {
         public Dictionary<string, string[]> requestlist = new Dictionary<string, string[]>(); /*{ get; set; }*/
+
 
         SignInManager<IdentityUser> signInManager;
         UserManager<IdentityUser> userManager;
@@ -68,17 +70,25 @@ namespace EyesOnMeCore.Pages
 
                 [Signature]
                 ";
-
-            string UserID = "00001";
-
-            string[] requestdataraw = databaseaccess.GetData($"SELECT TOP 100 * FROM [dbo].[DataManagementRequest] WITH (NOLOCK) WHERE RequestUserID = {UserID}");
-
-            foreach (string request in requestdataraw)
+            try 
             {
-                string[] requestdetails = request.Split(',');
-                requestlist.Add(requestdetails[0], requestdetails);
+                string UserID = User.Identity.Name;
+
+                string[] requestdataraw = databaseaccess.GetData($"SELECT TOP 100 * FROM [dbo].[DataManagementRequest] WITH (NOLOCK) WHERE RequestUserID = '{UserID}'");
+
+                foreach (string request in requestdataraw)
+                {
+                    string[] requestdetails = request.Split(',');
+                    requestlist.Add(requestdetails[0], requestdetails);
+                }
+            }
+            catch
+            {
+
             }
         }
+
+
         //public partial class Default : System.Web.UI.Page
         //{
         //    string name = Request.Form["txtName"];
@@ -87,17 +97,13 @@ namespace EyesOnMeCore.Pages
         public async Task<bool> RunRequests(string rawtext)
         {
             bool succeeded = false;
-            string datarequested = "All data relating to the subject's email address collected for marketing or other nonesential purposes";
-            string target = "ShadyBusiness.com";
-            string purpose = "request";
-            string subject = "Christopher Bennetts";
 
             string[] request = rawtext.Split('|'); 
 
             try
             {
 
-                //string[] request = new string[] { datarequested, target, purpose, subject };
+                //string[] request = new string[] { datarequested, target, purpose, subject, return };
                 Guid id = Guid.NewGuid();
                 requestlist.Add(id.ToString(), request);
 
@@ -117,8 +123,19 @@ namespace EyesOnMeCore.Pages
 
         public async Task<bool> SaveRequests(Dictionary<string, string[]> requestlist)
         {
-            int result = databaseaccess.SetData("");
-            if (result == 0)
+            bool overallresult = false;
+            foreach (KeyValuePair < string,string[]> request in requestlist)
+            { 
+                string requeststring;
+                requeststring = $"INSERT INTO [dbo].[DataManagementRequest] VALUES ('{request.Key}', '{request.Value[4]}', '{request.Value[0]}', '{request.Value[1]}');";
+
+                int result = databaseaccess.SetData(requeststring);
+                if(result != 0)
+                {
+                    overallresult = true;
+                }
+            }
+            if (overallresult)
             {
                 return false;
             }
@@ -134,7 +151,7 @@ namespace EyesOnMeCore.Pages
             foreach(KeyValuePair<string, string[]> request in requestlist)
             {
                 string requestrun = await Task.Run(() => aiapi.SendRequest(request));
-                request.Value.Append(requestrun);
+                request.Value[0] = requestrun;
             }
         }
 
@@ -143,8 +160,6 @@ namespace EyesOnMeCore.Pages
             string ComsServiceConnectionString = "endpoint=https://eoucomsservice.communication.azure.com/;accesskey=zKICzTtdwWjJop44CaZ0nyxSHbXTN2zqGjUMtlcb0lSaitop+dW0CxG4XargvHJBlFGg1pUyqF5kCZ7w7PBdcw==";
             EmailClient emailClient = new EmailClient(ComsServiceConnectionString);
 
-            string[] temp = new string[] { "yada", "yoda" };
-            requestlist.Add("string", temp);
             foreach (KeyValuePair<string, string[]> request in requestlist)
             {
                 await emailmanager.SendMail(request, emailClient);
