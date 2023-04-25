@@ -57,9 +57,21 @@
               "target": "Package",
               "version": "[6.8.3, )"
             },
+            "Google.Apis": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
+            "Google.Apis.Core": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
             "Google.Apis.Gmail.v1": {
               "target": "Package",
               "version": "[1.60.0.3014, )"
+            },
+            "Google.Cloud.Storage.V1": {
+              "target": "Package",
+              "version": "[4.5.0, )"
             },
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
