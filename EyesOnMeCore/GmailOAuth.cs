@@ -1,24 +1,17 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
-using Google.Apis.Util.Store;
-
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Gmail.v1;
 using Google.Apis.Gmail.v1.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
+using Microsoft.AspNetCore.Authentication.Google;
+using static OpenAI.GPT3.ObjectModels.SharedModels.IOpenAiModels;
+
 namespace EyesOnMeCore
 {
-    /// <summary>
-    /// Sample which demonstrates how to use the Books API.
-    /// https://developers.google.com/books/docs/v1/getting_started
-    ///// <summary>
-    //internal class Program
     public class GmailOAuth
     {
         [STAThread]
@@ -27,10 +20,9 @@ namespace EyesOnMeCore
 
         }
 
-        [STAThread]
         public async Task RunFull()
         {
-            Console.WriteLine("Books API Sample: List MyLibrary");
+            Console.WriteLine("GMAIL API TEST");
             Console.WriteLine("================================");
             try
             {
@@ -50,34 +42,44 @@ namespace EyesOnMeCore
         private async Task Runoauth()
         {
             UserCredential credential;
-            using (var stream = new FileStream("client_secrets.json", FileMode.Open, FileAccess.Read))
+            
+            //using (var stream = new FileStream("%APPDATA%\\Microsoft\\UserSecrets\\aspnet-EyesOnMeCore-B5EE1EA0-8DA3-482D-9523-A140E75D734E\r\n\\secrets.json", FileMode.Open, FileAccess.Read))
+            //{
+            //    credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+            //        GoogleClientSecrets.Load(stream).Secrets,
+            //        new[] { GmailService.Scope.GmailMetadata },
+            //        "user", CancellationToken.None, new FileDataStore("Gmail.Test"));
+            //}
+
+            ClientSecrets clientsecrets = new ClientSecrets
             {
-                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                new ClientSecrets
-                {
-                    ClientId = "PUT_CLIENT_ID_HERE",
-                    ClientSecret = "PUT_CLIENT_SECRETS_HERE"
-                },
+                ClientId = "596717765407-52qi3h1otn9pdpfaeam1j9uluh90rthi.apps.googleusercontent.com",
+                ClientSecret = "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"
+            };
+            FileDataStore filedatastore = new FileDataStore("Gmail.Test");
+
+            string redirectUri = "http://localhost:7147/authorize/";
+
+            credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                clientsecrets,
                 new[] { GmailService.Scope.GmailMetadata },
                 "user",
                 CancellationToken.None,
-                new FileDataStore("Gmail.Test"));
+                filedatastore
+                );
 
-                //credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                //    GoogleClientSecrets.Load(stream).Secrets,
-                //    new[] { GmailService.Scope.GmailMetadata },
-                //    "user", CancellationToken.None, new FileDataStore("Gmail.Test"));
-            }
-
-            // Create the service.
-            var service = new GmailService(new BaseClientService.Initializer()
-            {
+            //Create the service.
+           var service = new GmailService(new BaseClientService.Initializer()
+           {
                 HttpClientInitializer = credential,
                 ApplicationName = "Dissertation experiments",
             });
 
-            //var bookshelves = await service.Mylibrary.Bookshelves.List().ExecuteAsync();
-            
+            var labels = service.ApplicationName;
+            //UsersResource usersResource = new UsersResource(service);
+            UsersResource.LabelsResource.ListRequest listrequest =  new UsersResource.LabelsResource.ListRequest(service, "me");
+            listrequest.CreateRequest();
+            listrequest.Execute();
         }
     }
 }
