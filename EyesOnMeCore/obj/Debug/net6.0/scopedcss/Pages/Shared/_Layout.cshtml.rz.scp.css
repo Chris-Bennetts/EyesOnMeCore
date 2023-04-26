@@ -2,9 +2,10 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand[b-mci0uyssvg] {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    color: #fff;
 }
 
 a[b-mci0uyssvg], p[b-mci0uyssvg], h1[b-mci0uyssvg], h2[b-mci0uyssvg] {
@@ -71,6 +72,7 @@ h1[b-mci0uyssvg] {
     font-size: 2rem;
     text-align: center;
     margin-top: 1rem;
+    color: #fff;
 }
 
 .container[b-mci0uyssvg] {

@@ -61,13 +61,25 @@
               "target": "Package",
               "version": "[1.60.0, )"
             },
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
             "Google.Apis.Core": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
+            "Google.Apis.Discovery.v1": {
               "target": "Package",
               "version": "[1.60.0, )"
             },
             "Google.Apis.Gmail.v1": {
               "target": "Package",
               "version": "[1.60.0.3014, )"
+            },
+            "Google.Cloud.DataCatalog.V1": {
+              "target": "Package",
+              "version": "[2.3.0, )"
             },
             "Google.Cloud.Storage.V1": {
               "target": "Package",
@@ -76,6 +88,10 @@
             "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
               "version": "[5.2.9, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Google": {
+              "target": "Package",
+              "version": "[6.0.16, )"
             },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
