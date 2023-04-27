@@ -3,8 +3,6 @@ C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.GeneratedMSBuildE
 C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.AssemblyInfoInputs.cache
 C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.AssemblyInfo.cs
 C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.csproj.CoreCompileInputs.cache
-C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.MvcApplicationPartsAssemblyInfo.cs
-C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.MvcApplicationPartsAssemblyInfo.cache
 C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.RazorAssemblyInfo.cache
 C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.RazorAssemblyInfo.cs
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\appsettings.Development.json
@@ -104,3 +102,5 @@ C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Grpc.Auth.dll
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Grpc.Core.Api.dll
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Grpc.Net.Client.dll
 C:\GIT\EyesOnMeCore\EyesOnMeCore\bin\Debug\net6.0\Grpc.Net.Common.dll
+C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.MvcApplicationPartsAssemblyInfo.cs
+C:\GIT\EyesOnMeCore\EyesOnMeCore\obj\Debug\net6.0\EyesOnMeCore.MvcApplicationPartsAssemblyInfo.cache

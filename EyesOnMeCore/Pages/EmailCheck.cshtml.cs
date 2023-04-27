@@ -17,8 +17,8 @@ namespace EyesOnMeCore.Pages
         public void OnGet()
         {
             GmailOAuth gmailtest = new GmailOAuth();
-            //gmailtest.RunFull();
-            Runoauth();
+            gmailtest.RunFull();
+            //Runoauth();
         }
         static void Main(string[] args)
         {
@@ -85,18 +85,19 @@ namespace EyesOnMeCore.Pages
 
             string redirectUri = "http://localhost:7147/authorize/";
 
-            credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                clientsecrets,
-                new[] { GmailService.Scope.GmailMetadata },
-                "user",
-                CancellationToken.None,
-                filedatastore
-                );
+
+            //credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+            //    clientsecrets,
+            //    new[] { GmailService.Scope.GmailMetadata },
+            //    "user",
+            //    CancellationToken.None,
+            //    filedatastore
+            //    );
 
             //Create the service.
             var service = new GmailService(new BaseClientService.Initializer()
             {
-                HttpClientInitializer = credential,
+                //HttpClientInitializer = credential,
                 ApplicationName = "Dissertation experiments",
             });
 

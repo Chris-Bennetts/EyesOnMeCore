@@ -3,10 +3,13 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Google.Apis.Auth.OAuth2;
+using Google.Apis.Auth.OAuth2.Requests;
+using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Gmail.v1;
 using Google.Apis.Gmail.v1.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using static OpenAI.GPT3.ObjectModels.SharedModels.IOpenAiModels;
 
@@ -42,24 +45,27 @@ namespace EyesOnMeCore
         private async Task Runoauth()
         {
             UserCredential credential;
-            
-            //using (var stream = new FileStream("%APPDATA%\\Microsoft\\UserSecrets\\aspnet-EyesOnMeCore-B5EE1EA0-8DA3-482D-9523-A140E75D734E\r\n\\secrets.json", FileMode.Open, FileAccess.Read))
-            //{
-            //    credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-            //        GoogleClientSecrets.Load(stream).Secrets,
-            //        new[] { GmailService.Scope.GmailMetadata },
-            //        "user", CancellationToken.None, new FileDataStore("Gmail.Test"));
-            //}
+
 
             ClientSecrets clientsecrets = new ClientSecrets
             {
                 ClientId = "596717765407-52qi3h1otn9pdpfaeam1j9uluh90rthi.apps.googleusercontent.com",
-                ClientSecret = "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"
+                ClientSecret = "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",
             };
             FileDataStore filedatastore = new FileDataStore("Gmail.Test");
 
-            string redirectUri = "http://localhost:7147/authorize/";
+            string redirectUri = "/authorize/";
 
+            //ICodeReceiver.ReceiveCodeAsync(new AuthorizationCodeRequestUrl(new System.Uri(redirectUri) ),new CancellationToken());
+
+            //AuthorizationCodeResponseUrl;
+
+            var uri = new Uri(redirectUri);
+
+            //RemoteAuthenticationOptions yada = new RemoteAuthenticationOptions();
+
+            //yada.CallbackPath = redirectUri;
+                        
             credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                 clientsecrets,
                 new[] { GmailService.Scope.GmailMetadata },
@@ -68,8 +74,17 @@ namespace EyesOnMeCore
                 filedatastore
                 );
 
+            //using (var stream = new FileStream(
+            //    "%APPDATA%\\Microsoft\\UserSecrets\\aspnet-EyesOnMeCore-B5EE1EA0-8DA3-482D-9523-A140E75D734E\r\n\\secrets.json", FileMode.Open, FileAccess.Read))
+            //{
+            //    credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+            //        GoogleClientSecrets.Load(stream).Secrets,
+            //        new[] { GmailService.Scope.GmailMetadata },
+            //        "user", CancellationToken.None, new FileDataStore("Gmail.Test"));
+            //}
+
             //Create the service.
-           var service = new GmailService(new BaseClientService.Initializer()
+            var service = new GmailService(new BaseClientService.Initializer()
            {
                 HttpClientInitializer = credential,
                 ApplicationName = "Dissertation experiments",
@@ -79,7 +94,9 @@ namespace EyesOnMeCore
             //UsersResource usersResource = new UsersResource(service);
             UsersResource.LabelsResource.ListRequest listrequest =  new UsersResource.LabelsResource.ListRequest(service, "me");
             listrequest.CreateRequest();
-            listrequest.Execute();
+            Google.Apis.Gmail.v1.Data.ListLabelsResponse results = listrequest.Execute();
+            Console.WriteLine(results.ToString());
+
         }
     }
 }

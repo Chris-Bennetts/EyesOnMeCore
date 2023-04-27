@@ -53,10 +53,11 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
- 
+    //googleOptions.AuthorizationEndpoint = "https://localhost:7147/signin-google";
     googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 });
+
 
 //builder.Services.AddAuthentication()
 //   .AddGoogle(options =>
