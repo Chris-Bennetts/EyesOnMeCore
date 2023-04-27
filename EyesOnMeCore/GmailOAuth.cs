@@ -12,6 +12,8 @@ using Google.Apis.Util.Store;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using static OpenAI.GPT3.ObjectModels.SharedModels.IOpenAiModels;
+using Google.Apis.Auth.AspNetCore3;
+using Google.Apis.Drive.v3;
 
 namespace EyesOnMeCore
 {
@@ -29,7 +31,7 @@ namespace EyesOnMeCore
             Console.WriteLine("================================");
             try
             {
-                new GmailOAuth().Runoauth().Wait();
+                new GmailOAuth().RunOauthAttempt2().Wait();
             }
             catch (AggregateException ex)
             {
@@ -60,7 +62,7 @@ namespace EyesOnMeCore
 
             //AuthorizationCodeResponseUrl;
 
-            var uri = new Uri(redirectUri);
+            //var uri = new Uri(redirectUri);
 
             //RemoteAuthenticationOptions yada = new RemoteAuthenticationOptions();
 
@@ -98,5 +100,11 @@ namespace EyesOnMeCore
             Console.WriteLine(results.ToString());
 
         }
+
+        private async Task RunOauthAttempt2()
+        {
+
+        }
+
     }
 }

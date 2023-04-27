@@ -1,5 +1,7 @@
 using EyesOnMeCore.Data;
 using EyesOnMeCore.Pages;
+using Google.Apis.Auth.AspNetCore3;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +41,22 @@ builder.Services.Configure<IdentityOptions>(options =>
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
 });
+
+builder.Services
+
+        .AddAuthentication(o =>
+        {
+            o.DefaultChallengeScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+            o.DefaultForbidScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+            o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        })
+        .AddCookie()
+        .AddGoogleOpenIdConnect(options =>
+        {
+            options.ClientId = "596717765407-52qi3h1otn9pdpfaeam1j9uluh90rthi.apps.googleusercontent.com";
+            options.ClientSecret = "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";
+        });
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

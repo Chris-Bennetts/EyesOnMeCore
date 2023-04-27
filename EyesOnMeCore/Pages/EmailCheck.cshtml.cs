@@ -9,9 +9,12 @@ using Google.Apis.Discovery.v1.Data;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Gmail.v1;
 using Google.Apis.Util.Store;
+using Google.Apis.Auth.AspNetCore3;
+using Google.Apis.Drive.v3;
 
 namespace EyesOnMeCore.Pages
 {
+    [GoogleScopedAuthorize(DriveService.ScopeConstants.DriveReadonly)]
     public class EmailCheckModel : PageModel
     {
         public void OnGet()
@@ -28,6 +31,7 @@ namespace EyesOnMeCore.Pages
             {
                 //new EmailCheckModel.RunCore().Wait();
                 //new Program().Run().Wait();
+                DriveFileList(auth);
 
             }
             catch (AggregateException ex)
@@ -63,6 +67,29 @@ namespace EyesOnMeCore.Pages
                 }
             }
         }
+        public async Task<IActionResult> DriveFileList([FromServices] IGoogleAuthProvider auth)
+        {
+            GoogleCredential cred = await auth.GetCredentialAsync();
+            var service = new DriveService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = cred
+            });
+            var files = await service.Files.List().ExecuteAsync();
+            var fileNames = files.Files.Select(x => x.Name).ToList();
+            return EmailCheckModel(fileNames);
+        }
+
+
+        //public async Task DriveFileList([FromServices] IGoogleAuthProvider auth)
+        //{;
+        //    GoogleCredential cred = await auth.GetCredentialAsync();
+        //    var service = new DriveService(new BaseClientService.Initializer
+        //    {
+        //        HttpClientInitializer = cred
+        //    });
+        //    var files = await service.Files.List().ExecuteAsync();
+        //    var fileNames = files.Files.Select(x => x.Name).ToList();
+        //}
 
         private async Task Runoauth()
         {

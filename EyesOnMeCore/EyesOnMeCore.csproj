@@ -15,8 +15,10 @@
     <PackageReference Include="bootstrap" Version="5.2.3" />
     <PackageReference Include="Google.Apis" Version="1.60.0" />
     <PackageReference Include="Google.Apis.Auth" Version="1.60.0" />
+    <PackageReference Include="Google.Apis.Auth.AspNetCore3" Version="1.60.0" />
     <PackageReference Include="Google.Apis.Core" Version="1.60.0" />
     <PackageReference Include="Google.Apis.Discovery.v1" Version="1.60.0" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.60.0.3034" />
     <PackageReference Include="Google.Apis.Gmail.v1" Version="1.60.0.3014" />
     <PackageReference Include="Google.Cloud.DataCatalog.V1" Version="2.3.0" />
     <PackageReference Include="Google.Cloud.Storage.V1" Version="4.5.0" />

@@ -65,6 +65,10 @@
               "target": "Package",
               "version": "[1.60.0, )"
             },
+            "Google.Apis.Auth.AspNetCore3": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
             "Google.Apis.Core": {
               "target": "Package",
               "version": "[1.60.0, )"
@@ -72,6 +76,10 @@
             "Google.Apis.Discovery.v1": {
               "target": "Package",
               "version": "[1.60.0, )"
+            },
+            "Google.Apis.Drive.v3": {
+              "target": "Package",
+              "version": "[1.60.0.3034, )"
             },
             "Google.Apis.Gmail.v1": {
               "target": "Package",
