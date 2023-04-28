@@ -31,7 +31,7 @@ namespace EyesOnMeCore.Pages
             {
                 //new EmailCheckModel.RunCore().Wait();
                 //new Program().Run().Wait();
-                DriveFileList(auth);
+                //DriveFileList(auth);
 
             }
             catch (AggregateException ex)
@@ -67,17 +67,17 @@ namespace EyesOnMeCore.Pages
                 }
             }
         }
-        public async Task<IActionResult> DriveFileList([FromServices] IGoogleAuthProvider auth)
-        {
-            GoogleCredential cred = await auth.GetCredentialAsync();
-            var service = new DriveService(new BaseClientService.Initializer
-            {
-                HttpClientInitializer = cred
-            });
-            var files = await service.Files.List().ExecuteAsync();
-            var fileNames = files.Files.Select(x => x.Name).ToList();
-            return EmailCheckModel(fileNames);
-        }
+        //public async Task<IActionResult> DriveFileList([FromServices] IGoogleAuthProvider auth)
+        //{
+        //    GoogleCredential cred = await auth.GetCredentialAsync();
+        //    var service = new DriveService(new BaseClientService.Initializer
+        //    {
+        //        HttpClientInitializer = cred
+        //    });
+        //    var files = await service.Files.List().ExecuteAsync();
+        //    var fileNames = files.Files.Select(x => x.Name).ToList();
+        //    return EmailCheckModel(fileNames);
+        //}
 
 
         //public async Task DriveFileList([FromServices] IGoogleAuthProvider auth)
