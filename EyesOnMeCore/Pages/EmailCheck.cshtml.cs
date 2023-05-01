@@ -14,7 +14,7 @@ using Google.Apis.Drive.v3;
 
 namespace EyesOnMeCore.Pages
 {
-    [GoogleScopedAuthorize(DriveService.ScopeConstants.DriveReadonly)]
+    [GoogleScopedAuthorize(GmailService.ScopeConstants.GmailReadonly)]
     public class EmailCheckModel : PageModel
     {
         Dictionary<string, string[]> Requestdata = new Dictionary<string, string[]>();
@@ -47,7 +47,7 @@ namespace EyesOnMeCore.Pages
             Console.ReadKey();
         }
 
-        private async Task RunCore()
+        private async Task RunCore(string usertext)
         {
            // Create the service.
            var service = new DiscoveryService(new BaseClientService.Initializer
@@ -83,10 +83,12 @@ namespace EyesOnMeCore.Pages
 
         public async Task RunScanAndSend(string textraw)
         { 
-            RunCore();
-            EmailCheckModel emailCheck = new EmailCheckModel();
+            RunCore(textraw);
+            LegalRequestModel legalcheck = new LegalRequestModel();
+            legalcheck.RunRequests(textraw);
 
-            
+
+
         }
 
         //public async Task DriveFileList([FromServices] IGoogleAuthProvider auth)

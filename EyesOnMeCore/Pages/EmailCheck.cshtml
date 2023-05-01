@@ -28,7 +28,9 @@
         <section class="hero">
             <h2>Scan Your Email for Security Threats</h2>
             <p>Our email security scan tool helps protect your privacy and safeguard your personal information.</p>
-            <button>Scan Now</button>
+            <label for="subject">Subject</label>
+            <input type="text" id="subjecttext" name="subject">
+            <button onclick="postrequest()" type="submit"  class="btn-primary">Generate Request</button>
         </section>
         <section class="features">
             <div class="feature">
@@ -51,4 +53,19 @@
     <footer>
         <p>&copy; 2023 Email Security Scan. All rights reserved.</p>
     </footer>
+    <script>
+
+        function postrequest() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                document.getElementById("demo").innerHTML = this.responseText;
+            }
+            xhttp.open("POST", "EmailRequest");
+
+            text = document.getElementById("subjecttext").value, useridtemp;
+            const obj = JSON.stringify(text);
+            xhttp.send(obj);
+        }
+
+    </script>
 </body>

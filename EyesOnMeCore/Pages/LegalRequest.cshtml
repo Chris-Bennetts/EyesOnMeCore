@@ -119,25 +119,21 @@
         <h1>Inbox</h1>
         <ul class="message-list">
             
-            <li class="message-item">
-                <div class="message-sender">John Doe</div>
-                <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
-                <div class="message-timestamp">3/15/2023</div>
-            </li>
             @if (legalRequest.requestlist.Count != 0)
             {
                 foreach (KeyValuePair<string, string[]> Requestdetail in legalRequest.requestlist)
                 {
                     <li class="message-item">
-                        <div class="message-sender">John Doe</div>
-                        <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae felis vel nibh faucibus pharetra. Maecenas tristique lobortis eros eu malesuada.</div>
-                        <div class="message-timestamp">3/15/2023</div>
+                        <div class="message-sender">@Requestdetail.Value[0]</div>
+                            <div class="message-content">@Requestdetail.Value[1]</div>
+                        <div class="message-timestamp">@Requestdetail.Value[2]</div>
                     </li>
                 } 
             }
+            else{
+                <div> Request List Empty! Add a request by hitting the generate button above!</div>
+            }
         </ul>
-
-        <p id="demo1"> no data was sent </p>
     </div>
 }
 else

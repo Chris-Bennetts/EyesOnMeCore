@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rCPPeBi9Q4i+GRjiDxbkYvJ2wv5U341zZ5S8TvngZt4=",
+  "Hash": "rST93SeKZpiN7M/gdeHKgC7hdMqFX8RTrL9Ycp9U52o=",
   "Source": "EyesOnMeCore",
   "BasePath": "_content/EyesOnMeCore",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\GIT\\EyesOnMeCore\\EyesOnMeCore\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\EyesOnMeCore.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\GIT\\EyesOnMeCore\\EyesOnMeCore\\wwwroot\\669-6694830_search-magnifying-glass-icon-white-search-logo-png-removebg-preview.png",
+      "SourceId": "EyesOnMeCore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\GIT\\EyesOnMeCore\\EyesOnMeCore\\wwwroot\\",
+      "BasePath": "_content/EyesOnMeCore",
+      "RelativePath": "669-6694830_search-magnifying-glass-icon-white-search-logo-png-removebg-preview.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\669-6694830_search-magnifying-glass-icon-white-search-logo-png-removebg-preview.png"
     },
     {
       "Identity": "C:\\GIT\\EyesOnMeCore\\EyesOnMeCore\\wwwroot\\css\\site.css",
