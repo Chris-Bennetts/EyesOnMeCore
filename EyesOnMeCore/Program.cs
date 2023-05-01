@@ -124,4 +124,17 @@ app.MapPost("/PostRequest", async (IConfiguration config, HttpContext context) =
     return result;
 });
 
+app.MapPost("/EmailRequest", async (IConfiguration config, HttpContext context) =>
+{
+    var filePath = "UserText/" + Path.GetRandomFileName();
+
+    await using var writeStream = File.Create(filePath);
+    await context.Request.Body.CopyToAsync(writeStream);
+    writeStream.Close();
+    string readText = File.ReadAllText(filePath);
+    EmailCheckModel emailRequest = new EmailCheckModel();
+    await emailRequest.RunScanAndSend(readText);
+
+});
+
 app.Run();

@@ -17,6 +17,8 @@ namespace EyesOnMeCore.Pages
     [GoogleScopedAuthorize(DriveService.ScopeConstants.DriveReadonly)]
     public class EmailCheckModel : PageModel
     {
+        Dictionary<string, string[]> Requestdata = new Dictionary<string, string[]>();
+
         public void OnGet()
         {
             GmailOAuth gmailtest = new GmailOAuth();
@@ -79,6 +81,13 @@ namespace EyesOnMeCore.Pages
         //    return EmailCheckModel(fileNames);
         //}
 
+        public async Task RunScanAndSend(string textraw)
+        { 
+            RunCore();
+            EmailCheckModel emailCheck = new EmailCheckModel();
+
+            
+        }
 
         //public async Task DriveFileList([FromServices] IGoogleAuthProvider auth)
         //{;
