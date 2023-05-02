@@ -51,6 +51,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/GIT/EyesOnMeCore/EyesOnMeCore/Pages/MailFrontend.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbEZyb250ZW5kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/GIT/EyesOnMeCore/EyesOnMeCore/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

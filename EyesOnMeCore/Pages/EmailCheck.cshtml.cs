@@ -31,8 +31,23 @@ namespace EyesOnMeCore.Pages
                 {
                     HttpClientInitializer = cred
                 });
-                var yoda = await service.Users.Labels.List("me").ExecuteAsync();
-                var yada = await service.Users.Labels.Get("me", "CATEGORY_PROMOTIONS").ExecuteAsync();
+                //var yoda = await service.Users.Labels.List("me").ExecuteAsync();
+                // var yada = await service.Users.Labels.Get("me", "CATEGORY_PROMOTIONS").ExecuteAsync();
+                //var yeda = await service.Users.Messages.List("me").ExecuteAsync();
+                var listRequest = service.Users.Messages.List("me");
+                listRequest.LabelIds = "CATEGORY_PROMOTIONS";
+                listRequest.IncludeSpamTrash = false;
+                listRequest.MaxResults = 500;
+                var listRequestResponse = await listRequest.ExecuteAsync();
+                Dictionary<string, string> resultList = listRequestResponse.Messages.ToDictionary(yoda => yoda.Id.ToString() , yoda => yoda.ToString());
+                
+                foreach (KeyValuePair<string, string> messageid in resultList)
+                {
+                    var messageResource = await service.Users.Messages.Get("me",messageid.Key).ExecuteAsync();
+                    Requestdata.Add(messageid.Key, new string[] { messageResource.ToString() });
+                }
+
+
             }
             catch(Exception ex)
             {
