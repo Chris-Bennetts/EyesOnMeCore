@@ -19,11 +19,29 @@ namespace EyesOnMeCore.Pages
     {
         Dictionary<string, string[]> Requestdata = new Dictionary<string, string[]>();
 
-        public void OnGet()
+        public async Task OnGet([FromServices] IGoogleAuthProvider auth)
         {
-            GmailOAuth gmailtest = new GmailOAuth();
-            gmailtest.RunFull();
+            //GmailOAuth gmailtest = new GmailOAuth();
+            //gmailtest.RunFull();
             //Runoauth();
+            try
+            {
+                GoogleCredential cred = await auth.GetCredentialAsync();
+                GmailService service = new GmailService(new BaseClientService.Initializer
+                {
+                    HttpClientInitializer = cred
+                });
+                var yoda = await service.Users.Labels.List("me").ExecuteAsync();
+                var yada = await service.Users.Labels.Get("me", "CATEGORY_PROMOTIONS").ExecuteAsync();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            //GmailBaseServiceRequest gmailBaseServiceRequest = new Google.Apis.Gmail.v1.GmailBaseServiceRequest();
+            //var files = await service.ExecuteAsync();
+            //var fileNames = files.Files.Select(x => x.Name).ToList();
+            //return View(fileNames);
         }
         static void Main(string[] args)
         {
@@ -69,6 +87,7 @@ namespace EyesOnMeCore.Pages
                 }
             }
         }
+
         //public async Task<IActionResult> DriveFileList([FromServices] IGoogleAuthProvider auth)
         //{
         //    GoogleCredential cred = await auth.GetCredentialAsync();
@@ -78,7 +97,7 @@ namespace EyesOnMeCore.Pages
         //    });
         //    var files = await service.Files.List().ExecuteAsync();
         //    var fileNames = files.Files.Select(x => x.Name).ToList();
-        //    return EmailCheckModel(fileNames);
+        //    return View(fileNames);
         //}
 
         public async Task RunScanAndSend(string textraw)
