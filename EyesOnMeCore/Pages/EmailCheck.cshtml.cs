@@ -1,9 +1,7 @@
 using Google.Apis.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
 using System.Threading.Tasks;
-using Google.Apis.Services;
 using Google.Apis.Discovery.v1;
 using Google.Apis.Discovery.v1.Data;
 using Google.Apis.Auth.OAuth2;
@@ -11,19 +9,19 @@ using Google.Apis.Gmail.v1;
 using Google.Apis.Util.Store;
 using Google.Apis.Auth.AspNetCore3;
 using Google.Apis.Drive.v3;
+using Google.Protobuf.WellKnownTypes;
+using Google.Apis.Gmail.v1.Data;
+using System.Text.RegularExpressions;
 
 namespace EyesOnMeCore.Pages
 {
     [GoogleScopedAuthorize(GmailService.ScopeConstants.GmailReadonly)]
     public class EmailCheckModel : PageModel
     {
-        Dictionary<string, string[]> Requestdata = new Dictionary<string, string[]>();
+        Dictionary<string, string[]> requestlist = new Dictionary<string, string[]>();
 
         public async Task OnGet([FromServices] IGoogleAuthProvider auth)
         {
-            //GmailOAuth gmailtest = new GmailOAuth();
-            //gmailtest.RunFull();
-            //Runoauth();
             try
             {
                 GoogleCredential cred = await auth.GetCredentialAsync();
@@ -31,32 +29,48 @@ namespace EyesOnMeCore.Pages
                 {
                     HttpClientInitializer = cred
                 });
-                //var yoda = await service.Users.Labels.List("me").ExecuteAsync();
-                // var yada = await service.Users.Labels.Get("me", "CATEGORY_PROMOTIONS").ExecuteAsync();
-                //var yeda = await service.Users.Messages.List("me").ExecuteAsync();
+
                 var listRequest = service.Users.Messages.List("me");
                 listRequest.LabelIds = "CATEGORY_PROMOTIONS";
                 listRequest.IncludeSpamTrash = false;
                 listRequest.MaxResults = 500;
                 var listRequestResponse = await listRequest.ExecuteAsync();
-                Dictionary<string, string> resultList = listRequestResponse.Messages.ToDictionary(yoda => yoda.Id.ToString() , yoda => yoda.ToString());
+                Dictionary<string, string> resultList = listRequestResponse.Messages.ToDictionary(messageList => messageList.Id.ToString() , messageList => messageList.ToString());
                 
+                var toMessageResource = await service.Users.Messages.Get("me", resultList.First().Key).ExecuteAsync();
+                string toFull = toMessageResource.Payload.Headers[24].Value.ToString();
+                toFull = Regex.Match(toFull, $@"^.*?(?=>)").ToString();
+                string[] returnData = toFull.Split('<');
+
                 foreach (KeyValuePair<string, string> messageid in resultList)
                 {
                     var messageResource = await service.Users.Messages.Get("me",messageid.Key).ExecuteAsync();
-                    Requestdata.Add(messageid.Key, new string[] { messageResource.ToString() });
+
+                    string fromFull = messageResource.Payload.Headers[24].Value.ToString();
+                    fromFull = Regex.Match(fromFull, $@"^.*?(?=>)").ToString();
+                    string[] requestData = fromFull.Split('<');
+                    //string[] request = new string[] { datarequested, target, purpose, subject, return };
+                    requestlist.Add(Guid.NewGuid().ToString(),new string[] {
+                        "All Marketing Related Data",
+                        requestData[1],
+                        "Request",
+                        returnData[0],
+                        returnData[1]
+                    });
                 }
+
+                LegalRequestModel legalRequest = new LegalRequestModel();
+
+                await legalRequest.GenerateRequests(requestlist);
+                await legalRequest.SendRequests(requestlist);
+                await legalRequest.SaveRequests(requestlist);
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
-            //GmailBaseServiceRequest gmailBaseServiceRequest = new Google.Apis.Gmail.v1.GmailBaseServiceRequest();
-            //var files = await service.ExecuteAsync();
-            //var fileNames = files.Files.Select(x => x.Name).ToList();
-            //return View(fileNames);
         }
         static void Main(string[] args)
         {
@@ -102,18 +116,6 @@ namespace EyesOnMeCore.Pages
                 }
             }
         }
-
-        //public async Task<IActionResult> DriveFileList([FromServices] IGoogleAuthProvider auth)
-        //{
-        //    GoogleCredential cred = await auth.GetCredentialAsync();
-        //    var service = new DriveService(new BaseClientService.Initializer
-        //    {
-        //        HttpClientInitializer = cred
-        //    });
-        //    var files = await service.Files.List().ExecuteAsync();
-        //    var fileNames = files.Files.Select(x => x.Name).ToList();
-        //    return View(fileNames);
-        //}
 
         public async Task RunScanAndSend(string textraw)
         { 
