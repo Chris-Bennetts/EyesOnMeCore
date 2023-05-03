@@ -1,3 +1,4 @@
+using EyesOnMeCore;
 using EyesOnMeCore.Data;
 using EyesOnMeCore.Pages;
 using Google.Apis.Auth.AspNetCore3;
@@ -5,7 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using System.IO;
 
 
@@ -13,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//connectionString = "Server=tcp:cbennettsdevserver.database.windows.net,1433;Initial Catalog=EOUTesting;Persist Security Info=False;User ID=CBennetts;Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -124,7 +126,20 @@ app.MapPost("/PostRequest", async (IConfiguration config, HttpContext context) =
     return result;
 });
 
-app.MapPost("/EmailRequest", async (IConfiguration config, HttpContext context) =>
+//app.MapPost("/EmailRequest", async (IConfiguration config, HttpContext context) =>
+//{
+//    var filePath = "UserText/" + Path.GetRandomFileName();
+
+//    await using var writeStream = File.Create(filePath);
+//    await context.Request.Body.CopyToAsync(writeStream);
+//    writeStream.Close();
+//    string readText = File.ReadAllText(filePath);
+//    EmailCheckModel emailRequest = new EmailCheckModel();
+//    await emailRequest.RunScanAndSend(readText);
+
+//});
+
+app.MapPost("/DelRequest", async (IConfiguration config, HttpContext context) =>
 {
     var filePath = "UserText/" + Path.GetRandomFileName();
 
@@ -132,8 +147,8 @@ app.MapPost("/EmailRequest", async (IConfiguration config, HttpContext context) 
     await context.Request.Body.CopyToAsync(writeStream);
     writeStream.Close();
     string readText = File.ReadAllText(filePath);
-    EmailCheckModel emailRequest = new EmailCheckModel();
-    await emailRequest.RunScanAndSend(readText);
+    DatabaseAccess database = new DatabaseAccess();
+    database.SetData("");
 
 });
 

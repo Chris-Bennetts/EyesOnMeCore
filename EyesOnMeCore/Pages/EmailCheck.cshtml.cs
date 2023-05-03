@@ -64,8 +64,6 @@ namespace EyesOnMeCore.Pages
                 await legalRequest.GenerateRequests(requestlist);
                 await legalRequest.SendRequests(requestlist);
                 await legalRequest.SaveRequests(requestlist);
-
-
             }
             catch (Exception ex)
             {

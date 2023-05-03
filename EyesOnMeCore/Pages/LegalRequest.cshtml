@@ -135,6 +135,8 @@
             }
         </ul>
     </div>
+
+        <button onclick="delRequest()" type="submit">Delete All Request Data</button>
 }
 else
 {
@@ -173,6 +175,17 @@ else
             xhttp.send(obj);
     }
 
+        function delRequest() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                document.getElementById("demo").innerHTML = this.responseText;
+            }
+            xhttp.open("POST", "PostRequest");
+
+            text = "@User.Identity.Name"; 
+            const obj = JSON.stringify(text);
+            xhttp.send(obj);
+        }
 </script>
 </body>
 </html>
