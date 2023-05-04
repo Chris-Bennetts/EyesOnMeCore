@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-connectionString = "Server=tcp:cbennettsdevserver.database.windows.net,1433;Initial Catalog=EOUTesting;Persist Security Info=False;User ID=CBennetts;Password=azureVenice2013!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+//connectionString = "Server=tcp:cbennettsdevserver.database.windows.net,1433;Initial Catalog=EOUTesting;Persist Security Info=False;User ID=CBennetts;Password=azureVenice2013!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;";
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -71,12 +71,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    //googleOptions.AuthorizationEndpoint = "https://localhost:7147/signin-google";
-    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-});
+//builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+//{
+//    //googleOptions.AuthorizationEndpoint = "https://localhost:7147/signin-google";
+//    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+//    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+//});
 
 
 //builder.Services.AddAuthentication()
@@ -148,8 +148,10 @@ app.MapPost("/DelRequest", async (IConfiguration config, HttpContext context) =>
     writeStream.Close();
     string readText = File.ReadAllText(filePath);
     DatabaseAccess database = new DatabaseAccess();
-    database.SetData("");
-
+    if (!string.IsNullOrEmpty(readText))
+    {
+        database.SetData($"DELETE FROM dbo.DataManagementRequest WHERE RequestUserID = '{readText}';");
+    }
 });
 
 app.Run();
