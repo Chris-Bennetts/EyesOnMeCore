@@ -2,3 +2,59 @@
 @model EyesOnMeCore.Pages.MailFrontendModel
 @{
 }
+<head>
+    <meta charset="UTF-8">
+    <title>Email Security Scan</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Email Security Scan</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Scan Email</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h2>Scan Your Email for Security Threats</h2>
+            <p>Our email security scan tool helps protect your privacy and safeguard your personal information.</p>
+            <label for="subject">Subject</label>
+            <input type="text" id="subjecttext" name="subject">
+            <button onclick="window.location.href='/EmailCheck';"  class="btn-primary">Generate Request</button>
+        </section>
+        <section class="features">
+            <div class="feature">
+                <h3>Comprehensive Scan</h3>
+                <p>Our scan tool analyzes all parts of your email, including attachments and embedded links, to detect potential security threats.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Email Security Scan. All rights reserved.</p>
+    </footer>
+    <script>
+
+        function postrequest() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                document.getElementById("demo").innerHTML = this.responseText;
+            }
+            xhttp.open("POST", "EmailRequest");
+
+            text = document.getElementById("subjecttext").value, useridtemp;
+            const obj = JSON.stringify(text);
+            xhttp.send(obj);
+        }
+
+    </script>
+</body>

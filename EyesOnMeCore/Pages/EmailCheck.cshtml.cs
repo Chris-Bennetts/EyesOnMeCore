@@ -12,6 +12,8 @@ using Google.Apis.Drive.v3;
 using Google.Protobuf.WellKnownTypes;
 using Google.Apis.Gmail.v1.Data;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using static Google.Apis.Gmail.v1.UsersResource;
 
 namespace EyesOnMeCore.Pages
 {
@@ -38,15 +40,51 @@ namespace EyesOnMeCore.Pages
                 Dictionary<string, string> resultList = listRequestResponse.Messages.ToDictionary(messageList => messageList.Id.ToString() , messageList => messageList.ToString());
                 
                 var toMessageResource = await service.Users.Messages.Get("me", resultList.First().Key).ExecuteAsync();
-                string toFull = toMessageResource.Payload.Headers[24].Value.ToString();
-                toFull = Regex.Match(toFull, $@"^.*?(?=>)").ToString();
-                string[] returnData = toFull.Split('<');
+                //Dictionary<string, string> keyValuePairs = toMessageResource.Payload.Headers.ToDictionary(messageList => messageList.Name.ToString(), messageList => messageList.Value.ToString());
+                //string toFull = keyValuePairs["To"];
+                string toFull = toMessageResource.Payload.Headers[20].Value.ToString();
+                //toFull = Regex.Match(toFull, $@"^.*?(?=>)").ToString();
+
+                Dictionary<string, string> namedict = toMessageResource.Payload.Headers.ToDictionary(messageList => Guid.NewGuid().ToString(), messageList => messageList.Name.ToString());
+                Dictionary<string, string> valuedict = toMessageResource.Payload.Headers.ToDictionary(messageList => Guid.NewGuid().ToString(), messageList => messageList.Value.ToString());
+
+                int postion = 0;
+                int count = 0;
+                foreach (KeyValuePair<string, string> keylocation in namedict)
+                {
+                    if (keylocation.Value == "To")
+                    {
+                        postion = count;
+                    }
+                    count += 1;
+                }
+
+                toFull = valuedict.Values.ElementAt(postion);
+
+                string[] returnData = toFull.Split('@');
 
                 foreach (KeyValuePair<string, string> messageid in resultList)
                 {
                     var messageResource = await service.Users.Messages.Get("me",messageid.Key).ExecuteAsync();
 
-                    string fromFull = messageResource.Payload.Headers[24].Value.ToString();
+                    string fromFull = messageResource.Payload.Headers[16].Value.ToString();
+                    //Dictionary<string, string> fromKeyValuePairs = toMessageResource.Payload.Headers.ToDictionary(messageList => messageList.Name.ToString(), messageList => messageList.Value.ToString());
+                    //string fromFull = fromKeyValuePairs["From"];
+                    Dictionary<string, string> fromnamedict = toMessageResource.Payload.Headers.ToDictionary(messageList => Guid.NewGuid().ToString(), messageList => messageList.Name.ToString());
+                    Dictionary<string, string> fromvaluedict = toMessageResource.Payload.Headers.ToDictionary(messageList => Guid.NewGuid().ToString(), messageList => messageList.Value.ToString());
+                    
+                    int frompostion = 0;
+                    int fromcount = 0;
+                    foreach (KeyValuePair<string,string> keylocation in fromnamedict)
+                    {
+                        if (keylocation.Value == "From")
+                        {
+                            frompostion = fromcount;
+                        }
+                        fromcount += 1;
+                    }
+
+                    fromFull = fromvaluedict.Values.ElementAt(frompostion);
                     fromFull = Regex.Match(fromFull, $@"^.*?(?=>)").ToString();
                     string[] requestData = fromFull.Split('<');
                     //string[] request = new string[] { datarequested, target, purpose, subject, return };
@@ -55,7 +93,7 @@ namespace EyesOnMeCore.Pages
                         requestData[1],
                         "Request",
                         returnData[0],
-                        returnData[1]
+                        toFull,
                     });
                 }
 

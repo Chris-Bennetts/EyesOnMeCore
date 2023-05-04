@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//connectionString = "Server=tcp:cbennettsdevserver.database.windows.net,1433;Initial Catalog=EOUTesting;Persist Security Info=False;User ID=CBennetts;Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+connectionString = "Server=tcp:cbennettsdevserver.database.windows.net,1433;Initial Catalog=EOUTesting;Persist Security Info=False;User ID=CBennetts;Password=azureVenice2013!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
