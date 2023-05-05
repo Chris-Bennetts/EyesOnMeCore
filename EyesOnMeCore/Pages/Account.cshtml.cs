@@ -13,7 +13,7 @@ namespace EyesOnMeCore.Pages
         public void OnGet()
         {
              AccountData accountdata = new AccountData();
-            accountdata.Connect();
+            //accountdata.Connect();
         }
     }
 
@@ -29,11 +29,11 @@ namespace EyesOnMeCore.Pages
 
 
 
-        public void Connect()
-        {
-            string queryString = "SELECT TOP (1000) * FROM [dbo].[Users]";
-            DatabaseAccess databaseaccess = new DatabaseAccess();
-            string[] accountinfo = databaseaccess.GetData(queryString);
-        }
+        //public void Connect()
+        //{
+        //    string queryString = "SELECT TOP (1000) * FROM [dbo].[Users]";
+        //    DatabaseAccess databaseaccess = new DatabaseAccess();
+        //    string[] accountinfo = databaseaccess.GetData(queryString);
+        //}
     }
 }

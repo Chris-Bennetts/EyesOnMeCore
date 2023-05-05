@@ -7,6 +7,7 @@
     LegalRequestModel legalRequest = new LegalRequestModel();
     //ClaimsPrincipal principal = HttpContext.Current.User as ClaimsPrincipal;  
     //string userid = UserManager.GetUserId();
+    Dictionary<string, string[]> requestdetails = legalRequest.requestlist;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -118,10 +119,9 @@
         <button onclick="sendrequest()" type="submit"  class="btn-primary">Generate Request</button>
         <h1>Inbox</h1>
         <ul class="message-list">
-            
-            @if (legalRequest.requestlist.Count != 0)
+            @if (requestdetails.Count != 0)
             {
-                foreach (KeyValuePair<string, string[]> Requestdetail in legalRequest.requestlist)
+                    foreach (KeyValuePair<string, string[]> Requestdetail in requestdetails)
                 {
                     <li class="message-item">
                         <div class="message-sender">@Requestdetail.Value[0]</div>
@@ -136,7 +136,7 @@
         </ul>
     </div>
 
-        <button onclick="delRequest()" type="submit">Delete All Request Data</button>
+        <button onclick="delRequest()" type="submit" class="btn-primary">Delete All Request Data</button>
 }
 else
 {
