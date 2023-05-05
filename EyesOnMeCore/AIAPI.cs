@@ -22,7 +22,7 @@ namespace EyesOnMeCore
 
             var openAiService = new OpenAIService(new OpenAiOptions()
             {
-                ApiKey = "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"
+
             });
             var completionResult = await openAiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
             {
