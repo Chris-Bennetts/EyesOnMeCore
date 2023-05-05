@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'EyesOnMe'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D531BD1D1D574FB3BEAFFDA26EE276F2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A9F1574DF65749C182E638D0185FD2CF }}
           package: .
