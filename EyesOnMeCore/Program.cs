@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//connectionString = "Server=tcp:cbennettsdevserver.database.windows.net,1433;Initial Catalog=EOUTesting;Persist Security Info=False;User ID=CBennetts;Password=azureVenice2013!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;";
+connectionString = "Server=tcp:cbennettsdevserver.database.windows.net,1433;Initial Catalog=EOUTesting;Persist Security Info=False;User ID=CBennetts;Password=azureVenice2013!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;";
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -48,9 +48,9 @@ builder.Services
 
         .AddAuthentication(o =>
         {
-            o.DefaultChallengeScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
-            o.DefaultForbidScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
-            o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //o.DefaultChallengeScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+            //o.DefaultForbidScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+            //o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         })
         .AddCookie()
         .AddGoogleOpenIdConnect(options =>
