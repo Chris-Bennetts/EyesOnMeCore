@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UUg2JpjT8XwW2Ho6pbxoHWVXCcKXfNpwyVa995wJh6M=",
+  "Hash": "rST93SeKZpiN7M/gdeHKgC7hdMqFX8RTrL9Ycp9U52o=",
   "Source": "EyesOnMeCore",
   "BasePath": "_content/EyesOnMeCore",
   "Mode": "Default",
@@ -66,23 +66,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\669-6694830_search-magnifying-glass-icon-white-search-logo-png-removebg-preview.png"
-    },
-    {
-      "Identity": "C:\\GIT\\EyesOnMeCore\\EyesOnMeCore\\wwwroot\\blue-cyber-circuit-future-technology-background-vector.jpg",
-      "SourceId": "EyesOnMeCore",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\GIT\\EyesOnMeCore\\EyesOnMeCore\\wwwroot\\",
-      "BasePath": "_content/EyesOnMeCore",
-      "RelativePath": "blue-cyber-circuit-future-technology-background-vector.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\blue-cyber-circuit-future-technology-background-vector.jpg"
     },
     {
       "Identity": "C:\\GIT\\EyesOnMeCore\\EyesOnMeCore\\wwwroot\\css\\site.css",
